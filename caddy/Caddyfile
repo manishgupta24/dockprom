@@ -27,3 +27,22 @@
     errors stderr
     tls off
 }
+
+:8086 {
+    proxy / influxdb:8086 {
+            transparent
+            websocket
+        }
+
+    errors stderr
+    tls off
+}
+
+:8083 {
+    proxy / influxdb:8083 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}

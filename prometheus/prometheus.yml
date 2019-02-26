@@ -28,3 +28,10 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets: ['pushgateway:9091']
+
+# Remote Read & Write to InfluxDB
+remote_write:
+  - url: "http://influxdb:8086/api/v1/prom/write?db=prometheus&u=admin&p=admin"
+
+remote_read:
+  - url: "http://influxdb:8086/api/v1/prom/read?db=prometheus&u=admin&p=admin"
