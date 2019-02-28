@@ -151,3 +151,9 @@ To run the grafana container as `user: 104` change your `docker-compose.yml` lik
     labels:
       org.label-schema.group: "monitoring"
 ```
+
+# To add or remove new nodes/vm/server for monitoring.
+
+Update the targets/target_nodes.json.
+In above json file add/remove the <host:port> to/from targets list.
+The update will be immediately reflected in the prometheus server.

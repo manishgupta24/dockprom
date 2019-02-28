@@ -62,7 +62,6 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      #- /cgroup:/cgroup:ro #doesn't work on MacOS only for Linux
     restart: unless-stopped
     expose:
       - 8080
@@ -92,24 +91,14 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
-  pushgateway:
-    image: prom/pushgateway:v0.7.0
-    container_name: pushgateway
-    restart: unless-stopped
-    expose:
-      - 9091
-    networks:
-      - monitor-net
-    labels:
-      org.label-schema.group: "monitoring"
-
   caddy:
     image: stefanprodan/caddy
     container_name: caddy
     ports:
       - "3000:3000"
       - "9090:9090"
-      - "9091:9091"
+      - "8086:8086"
+      - "8083:8083"
     volumes:
       - ./caddy/:/etc/caddy/
     environment:
