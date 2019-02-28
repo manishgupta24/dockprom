@@ -31,6 +31,8 @@ services:
       - monitor-net
     labels:
       org.label-schema.group: "monitoring"
+    depends_on:
+      - influxdb
 
   influxdb:
     image: influxdb:1.7-alpine
