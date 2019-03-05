@@ -15,8 +15,8 @@ services:
     image: prom/prometheus:v2.7.1
     container_name: prometheus
     volumes:
-      - ./prometheus/:/etc/prometheus/
-      - prometheus_data:/prometheus
+      - ./prometheus/:/etc/prometheus/:Z
+      - prometheus_data:/prometheus:Z
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -38,7 +38,7 @@ services:
     image: influxdb:1.7-alpine
     container_name: influxdb
     volumes:
-      - influxdb_data:/var/lib/influxdb
+      - influxdb_data:/var/lib/influxdb:Z
     restart: unless-stopped
     environment:
       - INFLUXDB_ADMIN_ENABLED=true
@@ -74,10 +74,10 @@ services:
     image: grafana/grafana:5.4.3
     container_name: grafana
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/datasources:/etc/grafana/datasources
-      - ./grafana/dashboards:/etc/grafana/dashboards
-      - ./grafana/setup.sh:/setup.sh
+      - grafana_data:/var/lib/grafana:Z
+      - ./grafana/datasources:/etc/grafana/datasources:Z
+      - ./grafana/dashboards:/etc/grafana/dashboards:Z
+      - ./grafana/setup.sh:/setup.sh:Z
     entrypoint: /setup.sh
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
@@ -100,7 +100,7 @@ services:
       - "8086:8086"
       - "8083:8083"
     volumes:
-      - ./caddy/:/etc/caddy/
+      - ./caddy/:/etc/caddy/:Z
     environment:
       - ADMIN_USER=${ADMIN_USER:-admin}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
